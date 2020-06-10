@@ -548,10 +548,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;newmain.c: 13:     unsigned int i;
 [v _i `ui ~T0 @X0 1 a ]
 "14
-[; ;newmain.c: 14:     for(i=0;i<=9999;i++)
+[; ;newmain.c: 14:     for(i=0;i<=99;i++)
 {
 [e = _i -> -> 0 `i `ui ]
-[e $ <= _i -> -> 9999 `i `ui 355  ]
+[e $ <= _i -> -> 99 `i `ui 355  ]
 [e $U 356  ]
 [e :U 355 ]
 "15
@@ -561,7 +561,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;newmain.c: 17:     }
 }
 [e ++ _i -> -> 1 `i `ui ]
-[e $ <= _i -> -> 9999 `i `ui 355  ]
+[e $ <= _i -> -> 99 `i `ui 355  ]
 [e :U 356 ]
 }
 "18
@@ -581,56 +581,56 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;newmain.c: 23:     unsigned int a,v;
 [v _a `ui ~T0 @X0 1 a ]
 [v _v `ui ~T0 @X0 1 a ]
-"24
-[; ;newmain.c: 24:     ADCON0=0;
-[e = _ADCON0 -> -> 0 `i `uc ]
 "25
-[; ;newmain.c: 25:     ADCON1=0xE0;
-[e = _ADCON1 -> -> 224 `i `uc ]
+[; ;newmain.c: 25:     ADCON0=0;
+[e = _ADCON0 -> -> 0 `i `uc ]
 "26
-[; ;newmain.c: 26:     ADCON0bits.ADON=1;
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 26:     ADCON1=0xA0;
+[e = _ADCON1 -> -> 160 `i `uc ]
 "27
-[; ;newmain.c: 27:     ADCON0bits.GO=1;
-[e = . . _ADCON0bits 2 1 -> -> 1 `i `uc ]
-"28
-[; ;newmain.c: 28:     while(ADCON0bits.GO==1) ;
-[e $U 359  ]
-[e :U 360 ]
-[e :U 359 ]
-[e $ == -> . . _ADCON0bits 2 1 `i -> 1 `i 360  ]
-[e :U 361 ]
+[; ;newmain.c: 27:     ADCON0bits.ADON=1;
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
 "29
-[; ;newmain.c: 29:     a=ADRESL;
-[e = _a -> _ADRESL `ui ]
+[; ;newmain.c: 29:     while(1)
+[e :U 360 ]
 "30
-[; ;newmain.c: 30:     a|=(ADRESH<<8);
-[e =| _a -> << -> _ADRESH `i -> 8 `i `ui ]
+[; ;newmain.c: 30:     {
+{
 "31
-[; ;newmain.c: 31:     v=a*4.88*6.4/1000 ;
-[e = _v -> / * * -> _a `d .4.88 .6.4 -> -> 1000 `i `d `ui ]
+[; ;newmain.c: 31:      ADCON0bits.GO=1;
+[e = . . _ADCON0bits 2 1 -> -> 1 `i `uc ]
 "32
-[; ;newmain.c: 32:             DELAY();
-[e ( _DELAY ..  ]
+[; ;newmain.c: 32:     while(ADCON0bits.GO==1) ;
+[e $U 362  ]
+[e :U 363 ]
+[e :U 362 ]
+[e $ == -> . . _ADCON0bits 2 1 `i -> 1 `i 363  ]
+[e :U 364 ]
+"33
+[; ;newmain.c: 33:     a=ADRESL;
+[e = _a -> _ADRESL `ui ]
 "34
-[; ;newmain.c: 34:     DACCON0=0xE0;
-[e = _DACCON0 -> -> 224 `i `uc ]
+[; ;newmain.c: 34:     a|=(ADRESH<<8);
+[e =| _a -> << -> _ADRESH `i -> 8 `i `ui ]
 "35
-[; ;newmain.c: 35:     DACCON1=v;
-[e = _DACCON1 -> _v `uc ]
-"36
-[; ;newmain.c: 36:      DELAY();
-[e ( _DELAY ..  ]
-"37
-[; ;newmain.c: 37:      DELAY();
-[e ( _DELAY ..  ]
+[; ;newmain.c: 35:     v=a*4.88*6.4/1000 ;
+[e = _v -> / * * -> _a `d .4.88 .6.4 -> -> 1000 `i `d `ui ]
 "38
-[; ;newmain.c: 38:       DELAY();
-[e ( _DELAY ..  ]
+[; ;newmain.c: 38:     DACCON0=0xE0;
+[e = _DACCON0 -> -> 224 `i `uc ]
 "39
-[; ;newmain.c: 39:     return;
-[e $UE 358  ]
+[; ;newmain.c: 39:     DACCON1=v;
+[e = _DACCON1 -> _v `uc ]
 "40
-[; ;newmain.c: 40: }
+[; ;newmain.c: 40:     }
+}
+[e :U 359 ]
+[e $U 360  ]
+[e :U 361 ]
+"42
+[; ;newmain.c: 42:     return;
+[e $UE 358  ]
+"43
+[; ;newmain.c: 43: }
 [e :UE 358 ]
 }
